@@ -24,7 +24,7 @@ for i in 137..155
     if j == 17 or i.between?(141,148)
       next
     end
-    @doc = Nokogiri::XML(File.read("1/#{j}_#{i}.xml"))
+    @doc = Nokogiri::XML(File.read("../1/#{j}_#{i}.xml"))
   
     tests = @doc.xpath("//testsuite/@tests").text
 
@@ -84,6 +84,6 @@ for i in 137..155
     }
 
     #puts data
-    influxdb.write_point(name,data,time_precision)
+    #influxdb.write_point(name,data,time_precision)
   end
 end
