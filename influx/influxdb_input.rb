@@ -8,7 +8,7 @@ jenkins_user    = ENV['wltp_adminuser']
 jenkins_pass    = ENV['wltp_adminpass']
 database        = 'test'
 singlestats     = 'd'
-fullstats       = 'e'
+fullstats       = 'z'
 time_precision  = 'ns'
 
 influxdb = InfluxDB::Client.new database, 
@@ -109,8 +109,8 @@ for i in 137..155
        timestamp: Integer(timestamp)
     }
 
-    puts data
-    #influxdb.write_point(singlestats,data,time_precision)
+    #puts data
+    influxdb.write_point(singlestats,data,time_precision)
   end
   poststats = {
     values: {
@@ -137,8 +137,6 @@ for i in 137..155
     timestamp: timestamp
   }
 
-  puts poststats
-  puts functionalstats
-  #influxdb.write_point(fullstats,poststats,time_precision)
-  #influxdb.write_point(fullstats,functionalstats,time_precision)
+  influxdb.write_point(fullstats,poststats,time_precision)
+  influxdb.write_point(fullstats,functionalstats,time_precision)
 end
