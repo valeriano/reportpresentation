@@ -1,1 +1,1 @@
-sudo docker stop grafana-statsd-influxd-grafana
+sudo docker stop grafana
