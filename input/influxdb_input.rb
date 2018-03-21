@@ -17,6 +17,21 @@ influxdb = InfluxDB::Client.new database,
 
 #@doc = Nokogiri::XML(open('http://localhost:8080/job/Test/api/xml', :http_basic_authentication => [jenkins_user,jenkins_pass]))
 
+dbs = influxdb.list_databases
+dbcreated = false
+
+for i in 0..dbs.length - 1
+
+  name = dbs[i]["name"]
+  if name == database
+    dbcreated = true
+  end
+end
+
+if dbcreated == false
+  influxdb.create_database(database)
+end
+
 for i in 137..155
  if i.between?(141,148)
    next

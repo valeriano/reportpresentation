@@ -47,6 +47,12 @@ RUN apt-get -y update && \
 #Install ruby gems
 RUN gem install nokogiri influxdb
 
+#Copy ruby scripts
+RUN mkdir -p /root/workspace/input
+RUN mkdir -p /root/workspace/1
+COPY input/influxdb_input.rb /root/workspace/input/influxdb_input.rb
+COPY 1/* /root/workspace/1/
+
 # Configure Supervisord, SSH and base env
 COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -94,5 +100,6 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 # Cleanup
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 CMD ["/usr/bin/supervisord"]
